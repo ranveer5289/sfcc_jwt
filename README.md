@@ -97,4 +97,4 @@ Check `JWTTest.js` controller for SFRA example.
 
 ## Note
 
-This repository is inspired from node-js repo [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
+This repository is heavily inspired from node-js repo [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
