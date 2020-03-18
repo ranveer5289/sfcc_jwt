@@ -91,10 +91,10 @@ RS384 | RSA using SHA-384 hash algorithm
 RS512 | RSA using SHA-512 hash algorithm
 
 
-#Example
+## Example
 
 Check `JWTTest.js` controller for SFRA example.
 
-#Note
+## Note
 
 This repository is inspired from node-js repo [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)
