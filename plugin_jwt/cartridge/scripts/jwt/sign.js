@@ -4,9 +4,15 @@ var Encoding = require('dw/crypto/Encoding');
 var Bytes = require('dw/util/Bytes');
 var Signature = require('dw/crypto/Signature');
 var StringUtils = require('dw/util/StringUtils');
+var Mac = require('dw/crypto/Mac');
 
 var JWTAlgoToSignMapping = {
-    "RS256" : signWithRSA
+    "RS256" : signWithRSA,
+    "RS384" : signWithRSA,
+    "RS512" : signWithRSA,
+    "HS256": signWithHMAC,
+    "HS384": signWithHMAC,
+    "HS512": signWithHMAC
 };
 
 
@@ -70,4 +76,13 @@ function signWithRSA(input, privateKey, algorithm) {
     return Encoding.toBase64(signedBytes);
 }
 
+function signWithHMAC(input, secret, algorithm) {
+    var mac = new Mac(JWTAlgoToSFCCMapping[algorithm]);
+    var inputInBytes = new Bytes(input);
+    var secretInBytes = new Bytes(secret);
+
+    var output = mac.digest(inputInBytes, secretInBytes);
+
+    return Encoding.toBase64(output);
+}
 module.exports.signJWT = signJWT;
