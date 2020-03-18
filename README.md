@@ -42,6 +42,7 @@ var token = jwt.sign({ foo: 'bar' }, options);
 Returns a boolean signifying if the signature is valid or not.
 
 `token` is the JsonWebToken string
+
 `algorithm` HS256, RS256 or similar
 
 `options`:
@@ -53,7 +54,7 @@ Verify HMAC SHA256
 ```js
 var jwt = require('plugin_jwt');
 var options = {};
-options.privateKeyOrSecret = 'my_secret';
+options.publicKeyOrSecret = 'my_secret';
 var token = jwt.verify(token, algorithm, options);
 ```
 
