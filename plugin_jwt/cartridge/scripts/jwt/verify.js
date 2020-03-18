@@ -6,9 +6,15 @@ var Bytes = require('dw/util/Bytes');
 var Encoding = require('dw/crypto/Encoding');
 var Signature = require('dw/crypto/Signature');
 var StringUtils = require('dw/util/StringUtils');
+var Mac = require('dw/crypto/Mac');
 
 var JWTAlgoToVerifierMapping = {
-    "RS256" : createRSAVerifier
+    "RS256" : createRSAVerifier,
+    "RS384" : createRSAVerifier,
+    "RS512" : createRSAVerifier,
+    "HS256": createHMACVerifier,
+    "HS384": createHMACVerifier,
+    "HS512": createHMACVerifier
 };
 
 var JWTAlgoToSFCCMapping = jwtHelper.JWTAlgoToSFCCMapping;
@@ -57,6 +63,20 @@ function createRSAVerifier(signature, input, publicKey, algorithm) {
     var apiSig = new Signature();
     var verified = apiSig.verifyBytesSignature(jwtSignatureInBytes, contentToVerifyInBytes, new Bytes(publicKey), JWTAlgoToSFCCMapping[algorithm]);
     return verified
+}
 
+function createHMACVerifier(signature, input, secret, algorithm) {
+    var mac = new Mac(JWTAlgoToSFCCMapping[algorithm]);
+    var inputInBytes = new Bytes(input);
+    var secretInBytes = new Bytes(secret);
+
+    // create digest of input & compare against jwt signature
+    var outputInBytes = mac.digest(inputInBytes, secretInBytes);
+    var outputInString = Encoding.toBase64(outputInBytes); 
+
+    // signature is base64UrlEncoded so convert input to same
+    var urlEncodedOutput = jwtHelper.toBase64UrlEncoded(outputInString);
+
+    return signature === urlEncodedOutput;
 }
 module.exports.verifyJWT = verifyJWT;
