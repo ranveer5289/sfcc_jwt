@@ -30,7 +30,6 @@ var token = jwt.sign({ foo: 'bar' }, options);
 
 Sign with RSA SHA256
 ```js
-// sign with RSA SHA256
 var privateKey = 'my_private_key';
 var options = {};
 options.privateKeyOrSecret = privateKey;
@@ -43,6 +42,7 @@ var token = jwt.sign({ foo: 'bar' }, options);
 Returns a boolean signifying if the signature is valid or not.
 
 `token` is the JsonWebToken string
+`algorithm` HS256, RS256 or similar
 
 `options`:
 
