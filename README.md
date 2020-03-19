@@ -37,7 +37,7 @@ options.algorithm = 'RS256';
 var token = jwt.sign({ foo: 'bar' }, options);
 ```
 
-### jwt.verify(token, options)
+### jwt.verify(token, algorithm, options)
 
 Returns a boolean signifying if the signature is valid or not.
 
