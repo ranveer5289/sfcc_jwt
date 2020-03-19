@@ -1,5 +1,5 @@
 # sfcc_jwt
-An implementation of [JSON Web Tokens](https://tools.ietf.org/html/rfc7519) on Salesforce Commerce Cloud SFRA.
+An implementation of [JSON Web Tokens](https://tools.ietf.org/html/rfc7519) for Salesforce Commerce Cloud SFRA.
 
 # Install
 Install the cartridge on server & add it to cartridge path.
