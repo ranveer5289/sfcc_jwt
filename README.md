@@ -48,6 +48,9 @@ Returns a boolean signifying if the signature is valid or not.
 `options`:
 
 * `publicKeyOrSecret` is a string containing either the secret for HMAC algorithms or the public key for RSA.
+* `ignoreExpiration` is a boolean to skip JWT expiration time verification.
+* `audience` is a string containing JWT audience.
+* `issuer` is a string containing JWT issuer.
 
 Verify HMAC SHA256
 
