@@ -55,7 +55,7 @@ Verify HMAC SHA256
 var jwt = require('plugin_jwt');
 var options = {};
 options.publicKeyOrSecret = 'my_secret';
-var token = jwt.verify(token, algorithm, options);
+var isValid = jwt.verify(token, algorithm, options);
 ```
 
 Verify RSA SHA256
@@ -63,7 +63,7 @@ Verify RSA SHA256
 var publicKey = 'my_public_key';
 var options = {};
 options.publicKeyOrSecret = publicKey;
-var token = jwt.verify(token, algorithm, options);
+var isValid = jwt.verify(token, algorithm, options);
 ```
 
 ### jwt.decode(token, options)
