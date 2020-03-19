@@ -89,6 +89,8 @@ HS512 | HMAC using SHA-512 hash algorithm
 RS256 | RSA using SHA-256 hash algorithm
 RS384 | RSA using SHA-384 hash algorithm
 RS512 | RSA using SHA-512 hash algorithm
+PS256 | RSA-PSS using SHA-256 hash algorithm
+PS384 | RSA-PSS using SHA-384 hash algorithm
 
 
 ## Example
