@@ -14,7 +14,9 @@ var JWTAlgoToVerifierMapping = {
     "RS512" : createRSAVerifier,
     "HS256": createHMACVerifier,
     "HS384": createHMACVerifier,
-    "HS512": createHMACVerifier
+    "HS512": createHMACVerifier,
+    "PS256": createRSAVerifier,
+    "PS384": createRSAVerifier
 };
 
 var JWTAlgoToSFCCMapping = jwtHelper.JWTAlgoToSFCCMapping;

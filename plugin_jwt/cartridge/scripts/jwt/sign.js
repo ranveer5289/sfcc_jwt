@@ -12,7 +12,9 @@ var JWTAlgoToSignMapping = {
     "RS512" : signWithRSA,
     "HS256": signWithHMAC,
     "HS384": signWithHMAC,
-    "HS512": signWithHMAC
+    "HS512": signWithHMAC,
+    "PS256": signWithRSA,
+    "PS384": signWithRSA
 };
 
 
