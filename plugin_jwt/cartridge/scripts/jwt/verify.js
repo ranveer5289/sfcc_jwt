@@ -55,7 +55,42 @@ function verifyJWT(jwt, algorithm, options) {
     }
 
     var verified = verifier(jwtSig, contentToVerify, publicKeyOrSecret, algorithm);
-    return verified;
+    if (!verified) {
+        return false;
+    }
+
+    var decodedToken = jwtDecode.decodeJWT(jwt);
+    if (!decodedToken) {
+        return false;
+    }
+
+    var payload = decodedToken.payload;
+    if (!options.ignoreExpiration) {
+        var jwtExp = payload.exp;
+        //seconds to ms
+        var expirationDate = new Date(jwtExp * 1000);
+        var currentDate = new Date();
+        // expired
+        if (expirationDate < currentDate) {
+            return false;
+        }
+    }
+
+    if (options.audience) {
+        var aud = payload.aud;
+        if (options.audience !== aud) {
+            return false;
+        }
+    }
+
+    if (options.issuer) {
+        var iss = payload.iss;
+        if (iss !== options.issuer) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 function createRSAVerifier(signature, input, publicKey, algorithm) {
