@@ -21,12 +21,20 @@ var JWTAlgoToVerifierMapping = {
 
 var JWTAlgoToSFCCMapping = jwtHelper.JWTAlgoToSFCCMapping;
 
-function verifyJWT(jwt, algorithm, options) {
+function verifyJWT(jwt, options) {
     var options = options || {};
 
+    
     if (!jwtHelper.isValidJWT(jwt)) {
         return false;
     }
+    
+    var decodedToken = jwtDecode.decodeJWT(jwt);
+    if (!decodedToken) {
+        return false;
+    }
+    
+    var algorithm = decodedToken.header.alg;
     var parts = jwt.split('.');
 
     var supportedAlgorithms = jwtHelper.SUPPORTED_ALGORITHMS;
@@ -43,6 +51,12 @@ function verifyJWT(jwt, algorithm, options) {
     var publicKeyOrSecret;
     if(options.publicKeyOrSecret && typeof options.publicKeyOrSecret === 'string') {
         publicKeyOrSecret = options.publicKeyOrSecret;
+    } else if(options.publicKeyOrSecret && typeof options.publicKeyOrSecret === 'function') {
+        var jsonWebKey = options.publicKeyOrSecret(decodedToken);
+        if (jsonWebKey && jsonWebKey.modulus && jsonWebKey.exponential) {
+            var keyHelper = require('*/cartridge/scripts/helpers/rsaToDer');
+            publicKeyOrSecret = keyHelper.getRSAPublicKey(jsonWebKey.modulus, jsonWebKey.exponential);
+        }
     }
 
     if (!publicKeyOrSecret) {
@@ -56,11 +70,6 @@ function verifyJWT(jwt, algorithm, options) {
 
     var verified = verifier(jwtSig, contentToVerify, publicKeyOrSecret, algorithm);
     if (!verified) {
-        return false;
-    }
-
-    var decodedToken = jwtDecode.decodeJWT(jwt);
-    if (!decodedToken) {
         return false;
     }
 

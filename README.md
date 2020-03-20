@@ -37,17 +37,15 @@ options.algorithm = 'RS256';
 var token = jwt.sign({ foo: 'bar' }, options);
 ```
 
-### jwt.verify(token, algorithm, options)
+### jwt.verify(token, options)
 
 Returns a boolean signifying if the signature is valid or not.
 
 `token` is the JsonWebToken string
 
-`algorithm` HS256, RS256 or similar
-
 `options`:
 
-* `publicKeyOrSecret` is a string containing either the secret for HMAC algorithms or the public key for RSA.
+* `publicKeyOrSecret` is a string containing either the secret for HMAC algorithms or the public key for RSA or a function which will return an appropriate [JSON Web Key Set](https://auth0.com/docs/tokens/concepts/jwks) for a kid. This function should return a modulus & exponential which then will be used to generate a DER format of public key.
 * `ignoreExpiration` is a boolean to skip JWT expiration time verification.
 * `audience` is a string containing JWT audience.
 * `issuer` is a string containing JWT issuer.
@@ -56,17 +54,19 @@ Verify HMAC SHA256
 
 ```js
 var jwt = require('plugin_jwt');
+var token = 'my_token';
 var options = {};
 options.publicKeyOrSecret = 'my_secret';
-var isValid = jwt.verify(token, algorithm, options);
+var isValid = jwt.verify(token, options);
 ```
 
 Verify RSA SHA256
 ```js
 var publicKey = 'my_public_key';
+var token = 'my_token';
 var options = {};
 options.publicKeyOrSecret = publicKey;
-var isValid = jwt.verify(token, algorithm, options);
+var isValid = jwt.verify(token, options);
 ```
 
 ### jwt.decode(token, options)
@@ -76,7 +76,6 @@ Returns the decoded payload without verifying if the signature is valid.
 `token` is the JsonWebToken string
 
 ```js
-// get the decoded payload ignoring signature, no secretOrPrivateKey needed
 var decoded = jwt.decode(token);
 ```
 
