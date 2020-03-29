@@ -99,6 +99,12 @@ PS384 | RSA-PSS using SHA-384 hash algorithm
 
 Check `JWTTest.js` controller for SFRA example.
 
+## Resources
+
+1. https://jwt.io/
+2. https://jwt.io/introduction/
+3. https://github.com/auth0/node-jsonwebtoken
+
 ## Note
 
 This repository is heavily inspired from node-js repo [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)

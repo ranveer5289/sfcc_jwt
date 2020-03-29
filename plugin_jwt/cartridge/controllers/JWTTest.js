@@ -24,7 +24,7 @@ server.get('RSA', function (req, res, next) {
     var options = {};
     options.publicKeyOrSecret = publicKey;
 
-    var verified = jwt.verify(jwtToken, decodedToken.header.alg, options);
+    var verified = jwt.verify(jwtToken, options);
 
     res.json({decodedToken:decodedToken, verified:verified, jwtToken: jwtToken});
     next()
@@ -51,7 +51,7 @@ server.get('HMAC', function (req, res, next) {
     var options = {};
     options.publicKeyOrSecret = secret;
 
-    var verified = jwt.verify(jwtToken, decodedToken.header.alg, options);
+    var verified = jwt.verify(jwtToken, options);
 
     res.json({decodedToken:decodedToken, verified:verified, jwtToken: jwtToken});
     next()
