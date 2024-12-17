@@ -45,7 +45,7 @@ Returns a boolean signifying if the signature is valid or not.
 
 `options`:
 
-* `publicKeyOrSecret` is a string containing either the secret for HMAC algorithms or the public key for RSA or a function which will return an appropriate [JSON Web Key Set](https://auth0.com/docs/tokens/concepts/jwks) for a kid. This function should return a modulus & exponential which then will be used to generate a DER format of public key.
+* `publicKeyOrSecret` is a string containing either the secret for HMAC algorithms or the public key for RSA or a function which will return an appropriate [JSON Web Key Set](https://auth0.com/docs/tokens/concepts/jwks) for a kid. This function should return a modulus & exponential which then will be used to generate a DER format of public key. Note `PKCS#1` is not supported by SFCC, so you'd have to convert your pem to use `X.509/SPKI` format.
 * `ignoreExpiration` is a boolean to skip JWT expiration time verification.
 * `audience` is a string containing JWT audience.
 * `issuer` is a string containing JWT issuer.
